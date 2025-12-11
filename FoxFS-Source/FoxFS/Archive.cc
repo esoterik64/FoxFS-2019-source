@@ -2,7 +2,8 @@
 #include "Archive.h"
 
 #include <cryptopp/modes.h>
-#include <cryptopp/aes.h>
+//#include <cryptopp/aes.h>
+#include <cryptopp/blowfish.h>
 
 #include "../xxhash/xxhash.h"
 
@@ -97,7 +98,7 @@ namespace FoxFS
 #endif
 				try
 				{
-					CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption decoder(key, 32, iv);
+					CryptoPP::CFB_Mode<CryptoPP::Blowfish>::Decryption decoder(key, 32, iv);
 					decoder.ProcessData(reinterpret_cast<unsigned char*>(buffer), reinterpret_cast<unsigned char*>(buffer), len);
 				}
 				catch (...)
@@ -130,7 +131,7 @@ namespace FoxFS
 #endif
 				try
 				{
-					CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption decoder(key, 32, iv);
+					CryptoPP::CFB_Mode<CryptoPP::Blowfish>::Decryption decoder(key, 32, iv);
 					decoder.ProcessData(&tmp[0], &tmp[0], iter->second.size);
 				}
 				catch (...)

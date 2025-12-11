@@ -41,8 +41,8 @@ extern "C"
 	PFoxFS FOXFS_EXPORT FOXFS_API FoxFS_Create();
 	void FOXFS_EXPORT FOXFS_API FoxFS_Destroy(PFoxFS manager);
 	
-	int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerA(PFoxFS manager, const char* hostname, unsigned short port);
-	int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerW(PFoxFS manager, const wchar_t* hostname, unsigned short port);
+	//int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerA(PFoxFS manager, const char* hostname, unsigned short port);
+	//int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerW(PFoxFS manager, const wchar_t* hostname, unsigned short port);
 	int FOXFS_EXPORT FOXFS_API FoxFS_LoadA(PFoxFS manager, const char* filename);
 	int FOXFS_EXPORT FOXFS_API FoxFS_LoadW(PFoxFS manager, const wchar_t* filename);
 	int FOXFS_EXPORT FOXFS_API FoxFS_UnloadA(PFoxFS manager, const char* filename);

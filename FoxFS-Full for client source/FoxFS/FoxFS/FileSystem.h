@@ -49,9 +49,9 @@ namespace FoxFS
 	public:
 		FileSystem();
 		~FileSystem();
-
-		int setKeyServer(const char* host, unsigned int port);
-
+		
+		//int setKeyServer(const char* host, unsigned int port);
+		
 		int load(const wchar_t* filename);
 		int unload(const wchar_t* filename);
 
@@ -82,52 +82,53 @@ namespace FoxFS
 			}
 			return machine;
 		}
+		/*
 		static inline const unsigned char* getMacAddress()
 		{
-			static unsigned char mac[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-			if (mac[0] == 0 && mac[1] == 0 && mac[2] == 0 && mac[3] == 0 && mac[12] == 0 && mac[13] == 0 && mac[14] == 0 && mac[15] == 0)
+			static unsigned char mac[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+			if(mac[0] == 0 && mac[1] == 0 && mac[2] == 0 && mac[3] == 0 && mac[12] == 0 && mac[13] == 0 && mac[14] == 0 && mac[15] == 0)
 			{
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 				IP_ADAPTER_INFO adapters[32];
 				DWORD dwlen = sizeof(adapters);
 				DWORD dwstatus = GetAdaptersInfo(adapters, &dwlen);
-
-				if (dwstatus != ERROR_SUCCESS)
+				
+				if(dwstatus != ERROR_SUCCESS)
 				{
 					return mac;
 				}
-
+				
 				CryptoPP::MD5 md5;
 				md5.CalculateDigest(mac, reinterpret_cast<unsigned char*>(adapters[0].Address), adapters[0].AddressLength);
 #else
 				int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
-				if (sock < 0)
+				if(sock < 0)
 				{
 					return mac;
 				}
-
+				
 				struct ifconf conf;
-				char ifconfbuf[128 * sizeof(struct ifreq)] = { 0 };
+				char ifconfbuf[128 * sizeof(struct ifreq)] = {0};
 				conf.ifc_buf = ifconfbuf;
 				conf.ifc_len = sizeof(ifconfbuf);
-				if (ioctl(sock, SIOCGIFCONF, &conf))
+				if(ioctl(sock, SIOCGIFCONF, &conf))
 				{
 					close(sock);
 					return mac;
 				}
-
-				for (struct ifreq* ifr = conf.ifc_req; reinterpret_cast<char*>(ifr) < reinterpret_cast<char*>(conf.ifc_req + conf.ifc_len); ++ifr)
+				
+				for(struct ifreq* ifr = conf.ifc_req; reinterpret_cast<char*>(ifr) < reinterpret_cast<char*>(conf.ifc_req + conf.ifc_len); ++ifr)
 				{
-					if (ifr->ifr_addr.sa_data == (ifr + 1)->ifr_addr.sa_data)
+					if(ifr->ifr_addr.sa_data == (ifr + 1)->ifr_addr.sa_data)
 					{
 						continue;
 					}
-
-					if (ioctl(sock, SIOCGIFFLAGS, ifr))
+					
+					if(ioctl(sock, SIOCGIFFLAGS, ifr))
 					{
 						continue;
 					}
-					if (ioctl(sock, SIOCGIFHWADDR, ifr) == 0)
+					if(ioctl(sock, SIOCGIFHWADDR, ifr) == 0)
 					{
 						CryptoPP::MD5 md5;
 						md5.CalculateDigest(mac, reinterpret_cast<unsigned char*>(&(ifr->ifr_addr.sa_data)), 6);
@@ -142,15 +143,15 @@ namespace FoxFS
 		{
 			const unsigned char* machine = getMachineName();
 			const unsigned char* mac = getMacAddress();
-
+			
 			unsigned int l = 0;
-			if (machine)
+			if(machine)
 			{
 				buffer[l++] = 'N';
 				memcpy(&buffer[l], machine, 16);
 				l += 16;
 			}
-			if (mac)
+			if(mac)
 			{
 				buffer[l++] = 'M';
 				memcpy(&buffer[l], mac, 16);
@@ -159,7 +160,8 @@ namespace FoxFS
 			*len = l;
 			return l != 0;
 		}
-
+		*/
+		
 	private:
 		std::map<std::basic_string<wchar_t>, Archive*> archives;
 

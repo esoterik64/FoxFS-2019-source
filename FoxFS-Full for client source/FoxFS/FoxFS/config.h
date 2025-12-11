@@ -1,7 +1,7 @@
 #ifndef FOXFS_CONFIG_H
 #define FOXFS_CONFIG_H
 
-#define FOXFS_MAGIC (0x000FED0C)
+#define FOXFS_MAGIC (0x6F6E6558)
 #define FOXFS_LZ4_BLOCKSIZE (0x00001000)
 
 namespace FoxFS

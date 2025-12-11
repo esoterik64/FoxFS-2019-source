@@ -2,7 +2,8 @@
 #include "../FoxFS/config.h"
 
 #include <cryptopp/modes.h>
-#include <cryptopp/aes.h>
+//#include <cryptopp/aes.h>
+#include <cryptopp/blowfish.h>
 #include <cryptopp/crc.h>
 #include <cryptopp/osrng.h>
 
@@ -141,7 +142,7 @@ bool ArchiveWriter::add(const char* filename, unsigned int decompressed, unsigne
 	unsigned int index = 0;
 	std::string fname = filename;
 	transform(fname.begin(), fname.end(), fname.begin(), tolower);
-	for (unsigned int i = 0; i < fname.length(); ++i)
+	for(int i = 0; i < fname.length(); ++i)
 	{
 		if (fname[i] == '\\')
 		{
@@ -162,7 +163,7 @@ bool ArchiveWriter::add(const char* filename, unsigned int decompressed, unsigne
 
 	std::string fn = filename;
 	transform(fn.begin(), fn.end(), fn.begin(), tolower);
-	for (unsigned int i = 0; i < fn.length(); ++i)
+	for (int i = 0; i < fn.length(); ++i)
 	{
 		if (fn[i] == '\\')
 		{
@@ -170,7 +171,7 @@ bool ArchiveWriter::add(const char* filename, unsigned int decompressed, unsigne
 		}
 	}
 
-	CryptoPP::CFB_Mode<CryptoPP::AES>::Encryption encoder(this->key, 32, this->iv);
+	CryptoPP::CFB_Mode<CryptoPP::Blowfish>::Encryption encoder(this->key, 32, this->iv);
 	encoder.ProcessData(const_cast<unsigned char*>(reinterpret_cast<const unsigned char*>(data)), reinterpret_cast<const unsigned char*>(data), compressed);
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)

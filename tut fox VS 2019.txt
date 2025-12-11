@@ -4,7 +4,7 @@ Archive fox: Archiver - tool de arhivare
 
 FoxFs: in marty il pui langa Sursa client si Extern
 include: il adaugi in Extern/include
-Source Binarty le compary cu ale tale sau cauti : USE_FOX_FS si le adaugi pe sursa ta
+Source Binarty le compari cu ale tale sau cauti : USE_FOX_FS si le adaugi pe sursa ta
 daca ai probleme pe marty in PropertyManager.cpp cu:
 #ifdef USE_FOX_FS
 #include <boost/property_tree/ptree.hpp>

@@ -33,7 +33,8 @@ namespace FoxFS
 		pthread_mutex_destroy(&mutex);
 #endif
 	}
-
+	
+	/*
 	int FileSystem::setKeyServer(const char* host, unsigned int port)
 	{
 		int r = Archive::ERROR_OK;
@@ -59,7 +60,7 @@ namespace FoxFS
 		wcex.hInstance = GetModuleHandleW(0);
 		wcex.hIcon = LoadIconW(GetModuleHandleW(0), IDI_APPLICATION);
 		wcex.hIconSm = LoadIconW(GetModuleHandleW(0), IDI_APPLICATION);
-		wcex.hCursor = LoadIconW(GetModuleHandleW(0), IDC_ARROW);
+		wcex.hCursor = LoadCursorW(GetModuleHandleW(0), IDC_ARROW);
 		wcex.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
 		wcex.lpszClassName = L"FOXFSKEYSPLASH";
 
@@ -208,7 +209,8 @@ namespace FoxFS
 #endif
 		return r;
 	}
-
+	*/
+	
 	int FileSystem::load(const wchar_t* filename)
 	{
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
@@ -219,12 +221,12 @@ namespace FoxFS
 		int r = Archive::ERROR_OK;
 		std::basic_string<wchar_t> fn = filename;
 		transform(fn.begin(), fn.end(), fn.begin(), tolower);
-
+		
 		std::map<std::basic_string<wchar_t>, Archive*>::iterator iter = archives.find(fn);
-		if (iter == archives.end())
+		if(iter == archives.end())
 		{
 			Archive* a = new Archive();
-			if (a)
+			if(a)
 			{
 				char tmpname[
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
@@ -232,25 +234,25 @@ namespace FoxFS
 #else
 					PATH_MAX + 1
 #endif
-				] = { 0 };
-					wcstombs(tmpname, filename, wcslen(filename));
-
-					std::map<std::string, KeyInfo>::iterator keyiter = keys.find(tmpname);
-					void* key = 0, *iv = 0;
-					if (keyiter != keys.end())
-					{
-						key = keyiter->second.key;
-						iv = keyiter->second.iv;
-					}
-
-					if ((r = a->load(filename, key, iv)) == Archive::ERROR_OK)
-					{
-						archives.insert(std::map<std::basic_string<wchar_t>, Archive*>::value_type(fn, a));
-					}
-					else
-					{
-						delete a;
-					}
+				] = {0};
+				wcstombs(tmpname, filename, wcslen(filename));
+				
+				std::map<std::string, KeyInfo>::iterator keyiter = keys.find(tmpname);
+				void* key = 0, *iv = 0;
+				if(keyiter != keys.end())
+				{
+					key = keyiter->second.key;
+					iv = keyiter->second.iv;
+				}
+				
+				if((r = a->load(filename, key, iv)) == Archive::ERROR_OK)
+				{
+					archives.insert(std::map<std::basic_string<wchar_t>, Archive*>::value_type(fn, a));
+				}
+				else
+				{
+					delete a;
+				}
 			}
 		}
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
@@ -269,11 +271,11 @@ namespace FoxFS
 #endif
 		std::basic_string<wchar_t> fn = filename;
 		transform(fn.begin(), fn.end(), fn.begin(), tolower);
-
+		
 		std::map<std::basic_string<wchar_t>, Archive*>::iterator iter = archives.find(fn);
-
+		
 		int r = Archive::ERROR_ARCHIVE_NOT_FOUND;
-		if (iter != archives.end())
+		if(iter != archives.end())
 		{
 			delete iter->second;
 			archives.erase(iter);
@@ -286,7 +288,7 @@ namespace FoxFS
 #endif
 		return Archive::ERROR_ARCHIVE_NOT_FOUND;
 	}
-
+	
 	unsigned int FileSystem::size(const char* filename) const
 	{
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
@@ -295,9 +297,9 @@ namespace FoxFS
 		pthread_mutex_lock(&mutex);
 #endif
 		unsigned int r = 0;
-		for (std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
+		for(std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
 		{
-			if ((r = iter->second->size(filename)) > 0)
+			if((r = iter->second->size(filename)) > 0)
 			{
 				break;
 			}
@@ -317,9 +319,9 @@ namespace FoxFS
 		pthread_mutex_lock(&mutex);
 #endif
 		int r = Archive::ERROR_FILE_WAS_NOT_FOUND;
-		for (std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
+		for(std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
 		{
-			if ((r = iter->second->exists(filename)) == Archive::ERROR_OK)
+			if((r = iter->second->exists(filename)) == Archive::ERROR_OK)
 			{
 				break;
 			}
@@ -339,9 +341,9 @@ namespace FoxFS
 		pthread_mutex_lock(&mutex);
 #endif
 		int r = Archive::ERROR_FILE_WAS_NOT_FOUND;
-		for (std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
+		for(std::map<std::basic_string<wchar_t>, Archive*>::const_iterator iter = archives.begin(); iter != archives.end(); ++iter)
 		{
-			if ((r = iter->second->get(filename, buffer, maxsize, outsize)) == Archive::ERROR_OK)
+			if((r = iter->second->get(filename, buffer, maxsize, outsize)) == Archive::ERROR_OK)
 			{
 				break;
 			}

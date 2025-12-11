@@ -16,20 +16,22 @@ extern "C"
 
 	PFoxFS FOXFS_EXPORT FOXFS_API FoxFS_Create() { return reinterpret_cast<PFoxFS>(new FoxFS::FileSystem()); }
 	void FOXFS_EXPORT FOXFS_API FoxFS_Destroy(PFoxFS manager) { delete reinterpret_cast<FoxFS::FileSystem*>(manager); }
-
+	
+	/*
 	int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerA(PFoxFS manager, const char* hostname, unsigned short port) { return reinterpret_cast<FoxFS::FileSystem*>(manager)->setKeyServer(hostname, port); }
 	int FOXFS_EXPORT FOXFS_API FoxFS_SetKeyServerW(PFoxFS manager, const wchar_t* hostname, unsigned short port)
 	{
 		char host[
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
-			MAX_PATH + 1
+					MAX_PATH + 1
 #else
-			PATH_MAX + 1
+					PATH_MAX + 1
 #endif
-		] = { 0 };
-			wcstombs(host, hostname, wcslen(hostname));
-			return FoxFS_SetKeyServerA(manager, host, port);
+				] = {0};
+		wcstombs(host, hostname, wcslen(hostname));
+		return FoxFS_SetKeyServerA(manager, host, port);
 	}
+	*/
 	int FOXFS_EXPORT FOXFS_API FoxFS_LoadA(PFoxFS manager, const char* filename)
 	{
 		wchar_t file[

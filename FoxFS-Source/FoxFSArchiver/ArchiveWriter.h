@@ -4,7 +4,7 @@
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #include <windows.h>
 #ifdef _DEBUG
-	#pragma comment( lib, "cryptlib-7.0.0MTd.lib" )
+	#pragma comment( lib, "cryptlib-Debug.lib" )
 	#pragma comment( lib, "lz4_Debug.lib" )
 	#pragma comment( lib, "xxhash_Debug.lib" )
 #else

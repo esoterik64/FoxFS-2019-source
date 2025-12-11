@@ -397,17 +397,18 @@ struct XmlProcessor
 		}
 	}
 };
-
+#include <iostream>     // std::cin, std::cout
+#include <fstream>      // std::ofstream
 int main(int argc, char** argv)
 {
-	std::cout << "--- FoxFS SEDNA.RO ---" << std::endl;
+	std::cout << "Packing: " << argv[1] << std::endl;
 	if (argc > 5)
 	{
-		std::cout << "Ce face Gina? eu arhivez... ai de asteptat" << std::endl << std::endl;
+		std::cout << "ONE-X.RO" << std::endl << std::endl;
 	}
 	else
 	{
-		std::cout << "Build by oneX - 2021" << std::endl << std::endl;
+		std::cout << "Completed: " << argv[1] << std::endl;
 	}
 
 	try
